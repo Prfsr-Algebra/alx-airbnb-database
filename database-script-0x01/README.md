@@ -92,7 +92,7 @@ Private messages between users.
 
 You can view the full Entity-Relationship Diagram here:
 
-> **[Click to view ERD](./ERD/airbnb-clone-ERD.png)**
+> **[Click to view ERD](./airbnb-clone-ERD.png)**
 
 ---
 

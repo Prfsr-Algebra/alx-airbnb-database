@@ -1,3 +1,3 @@
 # Entity Relationship Diagram
 
-![ERD](./ERD/airbnb-clone-ERD.png)
+![ERD](./airbnb-clone-ERD.png)
