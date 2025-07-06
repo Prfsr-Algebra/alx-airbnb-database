@@ -4,7 +4,7 @@ INNER JOIN user ON users.user_id = bookings.user_id;
 
 SELECT *
 FROM properties
-INNER JOIN reviews ON reviews.property_id = properties.property_id
+LEFT JOIN reviews ON reviews.property_id = properties.property_id
 
 SELECT *
 FROM bookings
