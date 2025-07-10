@@ -1,12 +1,8 @@
-EXPLAIN ANALYZE
-SELECT *
-FROM bookings
-WHERE user_id = 'some-uuid' AND status = 'confirmed';
-
-
-CREATE INDEX idx_bookings_user_status ON bookings(user_id, status);
-
-EXPLAIN ANALYZE
-SELECT *
-FROM bookings
-WHERE user_id = 'some-uuid' AND status = 'confirmed';
+"Bitmap Heap Scan on bookings  (cost=4.16..9.51 rows=1 width=138) (actual time=0.037..0.038 rows=1 loops=1)"
+"  Recheck Cond: (user_id = 'c32cff75-abe4-423e-9b4e-d835b71f2ceb'::uuid)"
+"  Filter: ((status)::text = 'confirmed'::text)"
+"  Heap Blocks: exact=1"
+"  ->  Bitmap Index Scan on idx_bookings_user  (cost=0.00..4.16 rows=2 width=0) (actual time=0.015..0.015 rows=1 loops=1)"
+"        Index Cond: (user_id = 'c32cff75-abe4-423e-9b4e-d835b71f2ceb'::uuid)"
+"Planning Time: 0.139 ms"
+"Execution Time: 0.067 ms"
