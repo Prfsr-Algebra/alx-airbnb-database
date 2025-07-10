@@ -1,23 +1,18 @@
-EXPLAIN ANALYZE
-SELECT 
-    b.booking_id,
-    b.start_date,
-    b.end_date,
-    b.total_price,
-    b.status,
-    u.user_id,
-    u.first_name,
-    u.last_name,
-    u.email,
-    p.property_id,
-    p.name AS property_name,
-    p.location,
-    p.pricepernight,
-    pay.payment_id,
-    pay.amount,
-    pay.payment_date,
-    pay.payment_method
-FROM bookings b
-JOIN users u ON b.user_id = u.user_id
-JOIN properties p ON b.property_id = p.property_id
-LEFT JOIN payments pay ON pay.booking_id = b.booking_id;
+"Hash Join  (cost=43.27..63.54 rows=570 width=2824) (actual time=0.244..0.259 rows=2 loops=1)"
+"  Hash Cond: (b.property_id = p.property_id)"
+"  ->  Hash Join  (cost=31.70..50.44 rows=570 width=1776) (actual time=0.147..0.160 rows=2 loops=1)"
+"        Hash Cond: (b.user_id = u.user_id)"
+"        ->  Hash Right Join  (cost=21.02..38.23 rows=570 width=228) (actual time=0.080..0.091 rows=2 loops=1)"
+"              Hash Cond: (pay.booking_id = b.booking_id)"
+"              ->  Seq Scan on payments pay  (cost=0.00..15.70 rows=570 width=114) (actual time=0.020..0.021 rows=2 loops=1)"
+"              ->  Hash  (cost=14.90..14.90 rows=490 width=130) (actual time=0.024..0.025 rows=2 loops=1)"
+"                    Buckets: 1024  Batches: 1  Memory Usage: 9kB"
+"                    ->  Seq Scan on bookings b  (cost=0.00..14.90 rows=490 width=130) (actual time=0.017..0.018 rows=2 loops=1)"
+"        ->  Hash  (cost=10.30..10.30 rows=30 width=1564) (actual time=0.029..0.030 rows=3 loops=1)"
+"              Buckets: 1024  Batches: 1  Memory Usage: 9kB"
+"              ->  Seq Scan on users u  (cost=0.00..10.30 rows=30 width=1564) (actual time=0.021..0.023 rows=3 loops=1)"
+"  ->  Hash  (cost=10.70..10.70 rows=70 width=1064) (actual time=0.051..0.052 rows=2 loops=1)"
+"        Buckets: 1024  Batches: 1  Memory Usage: 9kB"
+"        ->  Seq Scan on properties p  (cost=0.00..10.70 rows=70 width=1064) (actual time=0.040..0.041 rows=2 loops=1)"
+"Planning Time: 1.370 ms"
+"Execution Time: 0.430 ms"
